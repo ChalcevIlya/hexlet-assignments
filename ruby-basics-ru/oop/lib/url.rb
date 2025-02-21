@@ -8,12 +8,12 @@ class Url
   extend Forwardable
   include Comparable
 
-  attr_accessor :uri, :params
+  attr_accessor :uri, :params, :uri_no_query
 
   def initialize(url_text)
     @uri = URI(url_text)
     @params = {}
-    @uri_no_query = uri.to_s.sub(uri.query, '')
+    @uri_no_query = uri.query.nil? ? uri : uri.to_s.sub(uri.query, '')
     parse_query
   end
 
